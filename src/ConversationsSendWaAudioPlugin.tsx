@@ -1,14 +1,12 @@
-import React from 'react';
-import * as Flex from '@twilio/flex-ui';
-import { FlexPlugin } from '@twilio/flex-plugin';
+import React from 'react'
+import * as Flex from '@twilio/flex-ui'
+import { FlexPlugin } from '@twilio/flex-plugin'
 
-import CustomTaskList from './components/CustomTaskList/CustomTaskList';
-
-const PLUGIN_NAME = 'ConversationsSendWaAudioPlugin';
+const PLUGIN_NAME = 'ConversationsSendWaAudioPlugin'
 
 export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
   constructor() {
-    super(PLUGIN_NAME);
+    super(PLUGIN_NAME)
   }
 
   /**
@@ -18,7 +16,6 @@ export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
    * @param flex { typeof Flex }
    */
   async init(flex: typeof Flex, manager: Flex.Manager): Promise<void> {
-    const options: Flex.ContentFragmentProps = { sortOrder: -1 };
-    flex.AgentDesktopView.Panel1.Content.add(<CustomTaskList key="ConversationsSendWaAudioPlugin-component" />, options);
+    const options: Flex.ContentFragmentProps = { sortOrder: -1 }
   }
 }
