@@ -5,6 +5,8 @@ import { MessageBubbleWrapper, RecorderControls } from './components'
 
 const PLUGIN_NAME = 'ConversationsSendWaAudioPlugin'
 
+const mediaType = 'audio/ogg'
+
 export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
   constructor() {
     super(PLUGIN_NAME)
@@ -21,11 +23,19 @@ export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
       <RecorderControls key={'recorder-controls'} />
     )
 
-    flex.MessageBubble.Content.replace(
+    flex.MessageBubble.Content.add(
       <MessageBubbleWrapper key={'message-bubble'} />,
       {
-        if: props => props.message.source.media
+        if: props =>
+          props.message.source.media &&
+          props.message.source.media.contentType === mediaType
       }
     )
+
+    flex.MessageBubble.Content.remove('body', {
+      if: props =>
+        props.message.source.media &&
+        props.message.source.media.contentType === mediaType
+    })
   }
 }
