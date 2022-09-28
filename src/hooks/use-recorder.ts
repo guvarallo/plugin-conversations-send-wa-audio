@@ -1,22 +1,24 @@
-import { useState, useEffect } from "react";
-import { startRecording, saveRecording } from "handlers/recorder-controls";
-import { Recorder, Interval, AudioTrack, MediaRecorderEvent } from "types/recorder";
+import { useEffect, Dispatch, SetStateAction } from 'react'
+import { startRecording, saveRecording } from '../handlers/recorder-controls'
+import {
+  Recorder,
+  Interval,
+  AudioTrack,
+  MediaRecorderEvent
+} from 'types/recorder'
 
-const initialState: Recorder = {
-  recordingMinutes: 0,
-  recordingSeconds: 0,
-  initRecording: false,
-  mediaStream: null,
-  mediaRecorder: null,
-  audio: null,
-};
+interface UseRecorderProps {
+  recorderState: Recorder
+  setRecorderState: Dispatch<SetStateAction<Recorder>>
+}
 
-export default function useRecorder() {
-  const [recorderState, setRecorderState] = useState<Recorder>(initialState);
-
+export const useRecorder = ({
+  recorderState,
+  setRecorderState
+}: UseRecorderProps) => {
   useEffect(() => {
-    const MAX_RECORDER_TIME = 5;
-    let recordingInterval: Interval = null;
+    const MAX_RECORDER_TIME = 5
+    let recordingInterval: Interval = null
 
     if (recorderState.initRecording)
       recordingInterval = setInterval(() => {
@@ -25,77 +27,83 @@ export default function useRecorder() {
             prevState.recordingMinutes === MAX_RECORDER_TIME &&
             prevState.recordingSeconds === 0
           ) {
-            typeof recordingInterval === "number" && clearInterval(recordingInterval);
-            return prevState;
+            typeof recordingInterval === 'number' &&
+              clearInterval(recordingInterval)
+            return prevState
           }
 
-          if (prevState.recordingSeconds >= 0 && prevState.recordingSeconds < 59)
+          if (
+            prevState.recordingSeconds >= 0 &&
+            prevState.recordingSeconds < 59
+          )
             return {
               ...prevState,
-              recordingSeconds: prevState.recordingSeconds + 1,
-            };
+              recordingSeconds: prevState.recordingSeconds + 1
+            }
           else if (prevState.recordingSeconds === 59)
             return {
               ...prevState,
               recordingMinutes: prevState.recordingMinutes + 1,
-              recordingSeconds: 0,
-            };
-          else return prevState;
-        });
-      }, 1000);
-    else typeof recordingInterval === "number" && clearInterval(recordingInterval);
+              recordingSeconds: 0
+            }
+          else return prevState
+        })
+      }, 1000)
+    else
+      typeof recordingInterval === 'number' && clearInterval(recordingInterval)
 
     return () => {
-      typeof recordingInterval === "number" && clearInterval(recordingInterval);
-    };
-  });
+      typeof recordingInterval === 'number' && clearInterval(recordingInterval)
+    }
+  })
 
   useEffect(() => {
-    setRecorderState((prevState) => {
+    setRecorderState(prevState => {
       if (prevState.mediaStream)
         return {
           ...prevState,
-          mediaRecorder: new MediaRecorder(prevState.mediaStream),
-        };
-      else return prevState;
-    });
-  }, [recorderState.mediaStream]);
+          mediaRecorder: new MediaRecorder(prevState.mediaStream)
+        }
+      else return prevState
+    })
+  }, [recorderState.mediaStream])
 
   useEffect(() => {
-    const recorder = recorderState.mediaRecorder;
-    let chunks: Blob[] = [];
+    const recorder = recorderState.mediaRecorder
+    let chunks: Blob[] = []
 
-    if (recorder && recorder.state === "inactive") {
-      recorder.start();
+    if (recorder && recorder.state === 'inactive') {
+      recorder.start()
 
       recorder.ondataavailable = (e: MediaRecorderEvent) => {
-        chunks.push(e.data);
-      };
+        chunks.push(e.data)
+      }
 
       recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
-        chunks = [];
+        const blob = new Blob(chunks, { type: 'audio/ogg' })
+        const file = new File([blob], 'audio.ogg', {
+          type: 'audio/ogg'
+        })
+        chunks = []
 
-        setRecorderState((prevState: Recorder) => {
-          if (prevState.mediaRecorder)
-            return {
-              ...initialState,
-              audio: window.URL.createObjectURL(blob),
-            };
-          else return initialState;
-        });
-      };
+        setRecorderState({
+          ...recorderState,
+          audio: window.URL.createObjectURL(blob),
+          audioFile: file
+        })
+      }
     }
 
     return () => {
-      if (recorder) recorder.stream.getAudioTracks().forEach((track: AudioTrack) => track.stop());
-    };
-  }, [recorderState.mediaRecorder]);
+      if (recorder)
+        recorder.stream
+          .getAudioTracks()
+          .forEach((track: AudioTrack) => track.stop())
+    }
+  }, [recorderState.mediaRecorder])
 
   return {
-    recorderState,
     startRecording: () => startRecording(setRecorderState),
-    cancelRecording: () => setRecorderState(initialState),
-    saveRecording: () => saveRecording(recorderState.mediaRecorder),
-  };
+    saveRecording: () => saveRecording(recorderState.mediaRecorder)
+  }
 }
