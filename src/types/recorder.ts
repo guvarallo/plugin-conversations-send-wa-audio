@@ -7,6 +7,7 @@ export type Recorder = {
   mediaStream: MediaStream | null
   mediaRecorder: MediaRecorder | null
   audio: string | null
+  audioFile: Blob | null
 }
 
 export type UseRecorder = {
@@ -25,18 +26,8 @@ export type RecorderControlsProps = {
   }
 }
 
-export type RecordingsListProps = {
-  audio: string | null
-}
-
-export type Audio = {
-  key: string
-  audio: string
-}
-
 export type Interval = null | number | ReturnType<typeof setInterval>
 export type SetRecorder = Dispatch<SetStateAction<Recorder>>
-export type SetRecordings = Dispatch<SetStateAction<Audio[]>>
 export type AudioTrack = MediaStreamTrack
 export type MediaRecorderEvent = {
   data: Blob
