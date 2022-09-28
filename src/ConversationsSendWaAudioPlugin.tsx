@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Flex from '@twilio/flex-ui'
 import { FlexPlugin } from '@twilio/flex-plugin'
+import { MessageBubbleWrapper, RecorderControls } from './components'
 
 const PLUGIN_NAME = 'ConversationsSendWaAudioPlugin'
 
@@ -16,6 +17,15 @@ export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
    * @param flex { typeof Flex }
    */
   async init(flex: typeof Flex, manager: Flex.Manager): Promise<void> {
-    const options: Flex.ContentFragmentProps = { sortOrder: -1 }
+    flex.MessageInputActions.Content.add(
+      <RecorderControls key={'recorder-controls'} />
+    )
+
+    flex.MessageBubble.Content.replace(
+      <MessageBubbleWrapper key={'message-bubble'} />,
+      {
+        if: props => props.message.source.media
+      }
+    )
   }
 }
