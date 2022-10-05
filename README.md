@@ -6,7 +6,7 @@
 
 ## CURRENT LIMITATION AS OF OCT/2022
 
-As of Oct/2022, due to limitations in the way web browsers capture audio media, it is ONLY possible to use this plugin in Firefox browsers.
+As of Oct/2022, due to limitations in the way web browsers capture audio media, it is ONLY possible to use this plugin if you open Flex in Firefox browser. It will NOT interfere if you have it installed in your account and open Flex in another browser. The recording controls will only render if Flex was opened in Firefox.
 
 ## Important note
 
@@ -14,7 +14,7 @@ To use this plugin you need to have Flex Conversations enabled on your account a
 
 ## Information about the plugin
 
-This plugin adds a recording control below the text input area in order to record audio trough the web browser and send it. On top of this, it renders all media files in the chat window. For images, it adds a capability to open them at a modal.
+This plugin adds a recording control below the text input area, in order to record audio trough the web browser and send it. On top of this, it renders all media files in the chat window. For images, it adds a capability to open them at a modal.
 
 ![chat window](chat-window.png)
 
