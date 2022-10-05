@@ -30,9 +30,6 @@ export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
     ).getBrowserName()
     const isFirefox = browser === 'Firefox'
 
-    console.log('isFirefox')
-    console.log(isFirefox)
-
     flex.MessageInputActions.Content.add(
       <RecorderControls key={'recorder-controls'} />,
       {
