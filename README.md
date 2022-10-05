@@ -6,7 +6,7 @@
 
 ## CURRENT LIMITATION AS OF OCT/2022
 
-As of Oct/2022, due to limitations in the way web browsers capture audio media, it is ONLY possible to use this plugin if you open Flex in Firefox browser. It will NOT interfere if you have it installed in your account and open Flex in another browser. The recording controls will only render if Flex was opened in Firefox.
+As of Oct/2022, due to limitations in the way web browsers capture audio media, it is ONLY possible to record the audio if you open Flex in Firefox. The good thing is that I added the capability of rendering media in the chat window, regardless of the browser you use. You can still install it in your account and use Flex with other browsers normally, it will simply disregard the recording controls and allow you to take advantage of the media rendering feature.
 
 ## Important note
 
