@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import { styled } from '@twilio/flex-ui'
 
-export const MediaMessageContainer = styled.div`
+export const MediaMessageContainer = styled('div')`
   display: flex;
   flex-direction: column;
   align-items: center;
