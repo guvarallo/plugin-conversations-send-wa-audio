@@ -1,4 +1,4 @@
-# Twilio Flex Conversations Send WhatsApp Audio
+# Twilio Flex Conversations Send WhatsApp Audio Plugin
 
 ## Disclaimer
 
