@@ -89,12 +89,11 @@ export const useRecorder = () => {
         setRecorderState((prevState: Recorder) => {
           if (prevState.mediaRecorder)
             return {
-              ...recorderState,
-              initRecording: false,
+              ...initialState,
               audio: window.URL.createObjectURL(blob),
               audioFile: file
             }
-          else return recorderState
+          else return initialState
         })
       }
     }
