@@ -1,8 +1,8 @@
-import { SetRecorder } from 'types/recorder'
+import { SetRecorder } from '../types/recorder'
 
 export const startRecording = async (setRecorderState: SetRecorder) => {
   try {
-    const stream: MediaStream = await navigator.mediaDevices.getUserMedia({
+    const stream = await navigator.mediaDevices.getUserMedia({
       audio: true
     })
 
@@ -18,6 +18,12 @@ export const startRecording = async (setRecorderState: SetRecorder) => {
   }
 }
 
-export const saveRecording = (recorder: any) => {
-  if (recorder.state !== 'inactive') recorder.stop()
+interface SaveRecording {
+  recorder: MediaRecorder | null
+}
+
+export const saveRecording = ({ recorder }: SaveRecording) => {
+  if (recorder && recorder.state !== 'inactive') {
+    recorder.stop()
+  }
 }

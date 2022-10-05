@@ -1,40 +1,26 @@
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import {
-//   faMicrophone,
-//   faTimes,
-//   faSave
-// } from '@fortawesome/free-solid-svg-icons'
+import { useEffect } from 'react'
+import { Actions } from '@twilio/flex-ui'
 import { MicrophoneOnIcon } from '@twilio-paste/icons/esm/MicrophoneOnIcon'
 import { ClearIcon } from '@twilio-paste/icons/esm/ClearIcon'
 import { SendIcon } from '@twilio-paste/icons/esm/SendIcon'
 
-import { formatMinutes, formatSeconds } from '../../utils/format-time'
-// import { RecorderControlsProps } from 'types/recorder'
 import './styles.css'
-import { useRecorder } from '../../hooks/use-recorder'
-import { Recording } from '../Recording'
-import { Recorder } from '../../types/recorder'
-import { useState } from 'react'
-
-const initialState: Recorder = {
-  recordingMinutes: 0,
-  recordingSeconds: 0,
-  initRecording: false,
-  mediaStream: null,
-  mediaRecorder: null,
-  audio: null,
-  audioFile: null
-}
+import { formatMinutes, formatSeconds } from '../../utils/format-time'
+import { useRecorder } from '../../hooks/UseRecorder'
 
 export const RecorderControls = (props: any): JSX.Element => {
-  const [recorderState, setRecorderState] = useState<Recorder>(initialState)
-  const { startRecording, saveRecording } = useRecorder({
-    recorderState,
-    setRecorderState
-  })
+  const { recorderState, startRecording, saveRecording, cancelRecording } =
+    useRecorder()
 
-  console.log('recorderState Controls')
-  console.log(recorderState)
+  useEffect(() => {
+    const { audioFile } = recorderState
+    if (audioFile) {
+      Actions.invokeAction('AttachFiles', {
+        files: [audioFile],
+        conversationSid: props.conversationSid
+      })
+    }
+  }, [recorderState.audioFile])
 
   return (
     <>
@@ -53,9 +39,9 @@ export const RecorderControls = (props: any): JSX.Element => {
               <button
                 className='cancel-button'
                 title='Cancel recording'
-                onClick={() => setRecorderState(initialState)}
+                onClick={cancelRecording}
               >
-                <ClearIcon decorative={false} title='Description of icon' />
+                <ClearIcon decorative={false} title='Clear icon' />
               </button>
             </div>
           )}
@@ -68,7 +54,7 @@ export const RecorderControls = (props: any): JSX.Element => {
               disabled={recorderState.recordingSeconds === 0}
               onClick={saveRecording}
             >
-              <SendIcon decorative={false} title='Description of icon' />
+              <SendIcon decorative={false} title='Send icon' />
             </button>
           ) : (
             <button
@@ -81,10 +67,6 @@ export const RecorderControls = (props: any): JSX.Element => {
           )}
         </div>
       </div>
-      <Recording
-        recorderState={recorderState}
-        conversationSid={props.conversationSid}
-      />
     </>
   )
 }

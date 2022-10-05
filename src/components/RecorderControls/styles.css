@@ -1,15 +1,14 @@
 .controls-container {
-  height: 15%;
   display: flex;
   justify-content: space-evenly;
-  padding: 0.5rem;
+  margin: 0 30%;
 }
 
 .recorder-display {
   width: 50%;
   display: flex;
   align-items: center;
-  font-size: 2rem;
+  font-size: 1rem;
 }
 
 @keyframes animated-block {
@@ -40,9 +39,6 @@
 }
 
 .cancel-button-container {
-  width: 20%;
-  display: grid;
-  place-content: center;
   animation-name: animated-block;
   animation-duration: 2s;
 }
@@ -60,14 +56,15 @@
 }
 
 .cancel-button {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
+  margin: 0 5px;
 }
 
 .start-button-container {
-  width: 15%;
-  display: grid;
-  place-content: center;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
 }
 
 .start-button:hover {
@@ -76,6 +73,7 @@
 }
 
 .start-button {
-  width: 40px;
-  height: 40px;
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
 }
