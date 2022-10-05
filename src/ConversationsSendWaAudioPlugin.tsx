@@ -1,11 +1,11 @@
 import React from 'react'
 import * as Flex from '@twilio/flex-ui'
 import { FlexPlugin } from '@twilio/flex-plugin'
+
 import { MessageBubbleWrapper, RecorderControls } from './components'
+import './actions'
 
 const PLUGIN_NAME = 'ConversationsSendWaAudioPlugin'
-
-const mediaType = 'audio/ogg'
 
 export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
   constructor() {
@@ -23,19 +23,12 @@ export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
       <RecorderControls key={'recorder-controls'} />
     )
 
-    flex.MessageBubble.Content.add(
-      <MessageBubbleWrapper key={'message-bubble'} />,
-      {
-        if: props =>
-          props.message.source.media &&
-          props.message.source.media.contentType === mediaType
-      }
-    )
-
     flex.MessageBubble.Content.remove('body', {
-      if: props =>
-        props.message.source.media &&
-        props.message.source.media.contentType === mediaType
+      if: props => props.message.source.media
     })
+
+    flex.MessageBubble.Content.add(
+      <MessageBubbleWrapper key={'message-bubble'} />
+    )
   }
 }
