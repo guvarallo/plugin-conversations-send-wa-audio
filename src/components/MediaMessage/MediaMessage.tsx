@@ -1,5 +1,5 @@
 import React from 'react'
-import { Actions, useFlexSelector } from '@twilio/flex-ui'
+import { Actions } from '@twilio/flex-ui'
 import { Theme } from '@twilio-paste/theme'
 
 import { MediaLink, MediaMessageContainer } from './MediaMessage.styles'
@@ -85,10 +85,6 @@ export const MediaMessage = ({
   mediaUrl,
   mediaType
 }: MediaMessageProps): JSX.Element => {
-  const isModalOpen = useFlexSelector(
-    state => state.flex.view.componentViewStates.modalOpen?.isModalOpen
-  )
-
   const mediaMap: MediaMap = {
     [IMAGE_MEDIA_JPEG]: imageViewer({ mediaUrl, mediaType }),
     [IMAGE_MEDIA_JPG]: imageViewer({ mediaUrl, mediaType }),
