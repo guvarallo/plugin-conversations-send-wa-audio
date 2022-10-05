@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { startRecording, saveRecording } from '../handlers/recorder-controls'
-import {
-  Recorder,
-  Interval,
-  AudioTrack,
-  MediaRecorderEvent
-} from '../types/recorder'
+import { Recorder, Interval, AudioTrack, MediaRecorderEvent } from '../types'
 
 export const initialState: Recorder = {
   recordingMinutes: 0,

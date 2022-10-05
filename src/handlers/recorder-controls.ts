@@ -1,4 +1,4 @@
-import { SetRecorder } from '../types/recorder'
+import { SetRecorder } from '../types'
 
 export const startRecording = async (setRecorderState: SetRecorder) => {
   try {

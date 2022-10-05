@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Actions, Button, useFlexSelector } from '@twilio/flex-ui'
+import { Actions, useFlexSelector } from '@twilio/flex-ui'
 import {
   Box,
   Modal,
   ModalBody,
-  ModalFooter,
-  ModalFooterActions,
   ModalHeader,
   ModalHeading
 } from '@twilio-paste/core'
