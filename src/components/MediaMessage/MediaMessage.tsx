@@ -89,9 +89,6 @@ export const MediaMessage = ({
     state => state.flex.view.componentViewStates.modalOpen?.isModalOpen
   )
 
-  console.log('isModalOpen')
-  console.log(isModalOpen)
-
   const mediaMap: MediaMap = {
     [IMAGE_MEDIA_JPEG]: imageViewer({ mediaUrl, mediaType }),
     [IMAGE_MEDIA_JPG]: imageViewer({ mediaUrl, mediaType }),
