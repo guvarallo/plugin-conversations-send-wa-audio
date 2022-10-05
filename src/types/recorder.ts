@@ -7,7 +7,7 @@ export type Recorder = {
   mediaStream: MediaStream | null
   mediaRecorder: MediaRecorder | null
   audio: string | null
-  audioFile: Blob | null
+  audioFile: File | null
 }
 
 export type UseRecorder = {
