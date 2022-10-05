@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Flex from '@twilio/flex-ui'
 import { FlexPlugin } from '@twilio/flex-plugin'
+import Bowser from 'bowser'
 
 import { MessageBubbleWrapper, RecorderControls } from './components'
 import './actions'
@@ -19,8 +20,24 @@ export default class ConversationsSendWaAudioPlugin extends FlexPlugin {
    * @param flex { typeof Flex }
    */
   async init(flex: typeof Flex, manager: Flex.Manager): Promise<void> {
+    /**
+     * As of today (05/10/22), the only browser that supports MediaRecorder is
+     * Firefox. Because of this, we are only adding the recorder controls on
+     * Firefox browsers.
+     */
+    const browser = Bowser.getParser(
+      window.navigator.userAgent
+    ).getBrowserName()
+    const isFirefox = browser === 'Firefox'
+
+    console.log('isFirefox')
+    console.log(isFirefox)
+
     flex.MessageInputActions.Content.add(
-      <RecorderControls key={'recorder-controls'} />
+      <RecorderControls key={'recorder-controls'} />,
+      {
+        if: () => isFirefox
+      }
     )
 
     flex.MessageBubble.Content.remove('body', {
