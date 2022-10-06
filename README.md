@@ -16,9 +16,7 @@ To use this plugin you need to have Flex Conversations enabled on your account a
 
 This plugin adds a recording control below the text input area, in order to record audio trough the web browser and send it. On top of this, it renders all media files in the chat window. For images, it adds a capability to open them at a modal.
 
-![chat window](chat-window.png)
-
-![modal](modal.png)
+![demo](demo.gif)
 
 ## Setup
 
