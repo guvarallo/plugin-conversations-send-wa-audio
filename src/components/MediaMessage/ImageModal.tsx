@@ -43,7 +43,7 @@ export const ImageModal = () => {
       </ModalHeader>
       <ModalBody>
         <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
-          <img src={url} alt='image-modal' />
+          <img src={url} alt='image-modal' style={{ maxWidth: '50rem' }} />
         </Box>
       </ModalBody>
     </Modal>

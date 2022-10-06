@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Actions } from '@twilio/flex-ui'
 import { Theme } from '@twilio-paste/theme'
 
@@ -30,78 +30,83 @@ interface MediaMessageProps {
   mediaType: string
 }
 
-const imageViewer = ({
-  mediaUrl,
-  mediaType
-}: MediaMessageProps): JSX.Element => (
-  <div style={{ cursor: 'pointer' }}>
-    <img
-      src={mediaUrl}
-      alt={mediaType}
-      width='150px'
-      onClick={() => Actions.invokeAction('OpenImageModal', { url: mediaUrl })}
-    />
-  </div>
-)
-
-const audioPlayer = ({
-  mediaUrl,
-  mediaType
-}: MediaMessageProps): JSX.Element => (
-  <>
-    <audio controls>
-      <source src={mediaUrl} type={mediaType} />
-    </audio>
-    <MediaLink href={mediaUrl} target='_blank' rel='noopener noreferrer'>
-      Full Size Player
-    </MediaLink>
-  </>
-)
-
-const pdfViewer = (mediaUrl: string): JSX.Element => (
-  <>
-    <iframe title='PDF Preview' src={mediaUrl} width='100%' />
-    <a href={mediaUrl} target='_blank' rel='noopener noreferrer'>
-      Full Size Document
-    </a>
-  </>
-)
-
-const videoPlayer = ({
-  mediaUrl,
-  mediaType
-}: MediaMessageProps): JSX.Element => (
-  <>
-    <video width='100%' controls>
-      <source src={mediaUrl} type={mediaType} />
-    </video>
-    <a href={mediaUrl} target='_blank' rel='noopener noreferrer'>
-      Full Size Player
-    </a>
-  </>
-)
-
 export const MediaMessage = ({
   mediaUrl,
   mediaType
 }: MediaMessageProps): JSX.Element => {
+  const imageViewer = useMemo(
+    () => (
+      <div style={{ cursor: 'pointer' }}>
+        <img
+          src={mediaUrl}
+          alt={mediaType}
+          width='150px'
+          onClick={() =>
+            Actions.invokeAction('OpenImageModal', { url: mediaUrl })
+          }
+        />
+      </div>
+    ),
+    []
+  )
+
+  const audioPlayer = useMemo(
+    () => (
+      <>
+        <audio controls>
+          <source src={mediaUrl} type={mediaType} />
+        </audio>
+        <MediaLink href={mediaUrl} target='_blank' rel='noopener noreferrer'>
+          Full Size Player
+        </MediaLink>
+      </>
+    ),
+    []
+  )
+
+  const videoPlayer = useMemo(
+    () => (
+      <>
+        <video width='100%' controls>
+          <source src={mediaUrl} type={mediaType} />
+        </video>
+        <a href={mediaUrl} target='_blank' rel='noopener noreferrer'>
+          Full Size Player
+        </a>
+      </>
+    ),
+    []
+  )
+
+  const pdfViewer = useMemo(
+    () => (
+      <>
+        <iframe title='PDF Preview' src={mediaUrl} width='100%' />
+        <a href={mediaUrl} target='_blank' rel='noopener noreferrer'>
+          Full Size Document
+        </a>
+      </>
+    ),
+    []
+  )
+
   const mediaMap: MediaMap = {
-    [IMAGE_MEDIA_JPEG]: imageViewer({ mediaUrl, mediaType }),
-    [IMAGE_MEDIA_JPG]: imageViewer({ mediaUrl, mediaType }),
-    [IMAGE_MEDIA_PNG]: imageViewer({ mediaUrl, mediaType }),
-    [IMAGE_MEDIA_GIF]: imageViewer({ mediaUrl, mediaType }),
-    [IMAGE_MEDIA_WEBP]: imageViewer({ mediaUrl, mediaType }),
-    [AUDIO_MEDIA_MP4]: audioPlayer({ mediaUrl, mediaType }),
-    [AUDIO_MEDIA_MP3]: audioPlayer({ mediaUrl, mediaType }),
-    [AUDIO_MEDIA_MPEG]: audioPlayer({ mediaUrl, mediaType }),
-    [AUDIO_MEDIA_OGG]: audioPlayer({ mediaUrl, mediaType }),
-    [AUDIO_MEDIA_WEBM]: audioPlayer({ mediaUrl, mediaType }),
-    [AUDIO_MEDIA_AMR]: audioPlayer({ mediaUrl, mediaType }),
-    [VIDEO_MEDIA_MPEG]: videoPlayer({ mediaUrl, mediaType }),
-    [VIDEO_MEDIA_MP4]: videoPlayer({ mediaUrl, mediaType }),
-    [VIDEO_MEDIA_QUICKTIME]: videoPlayer({ mediaUrl, mediaType }),
-    [VIDEO_MEDIA_WEBM]: videoPlayer({ mediaUrl, mediaType }),
-    [FILE_MEDIA_PDF]: pdfViewer(mediaUrl)
+    [IMAGE_MEDIA_JPEG]: imageViewer,
+    [IMAGE_MEDIA_JPG]: imageViewer,
+    [IMAGE_MEDIA_PNG]: imageViewer,
+    [IMAGE_MEDIA_GIF]: imageViewer,
+    [IMAGE_MEDIA_WEBP]: imageViewer,
+    [AUDIO_MEDIA_MP4]: audioPlayer,
+    [AUDIO_MEDIA_MP3]: audioPlayer,
+    [AUDIO_MEDIA_MPEG]: audioPlayer,
+    [AUDIO_MEDIA_OGG]: audioPlayer,
+    [AUDIO_MEDIA_WEBM]: audioPlayer,
+    [AUDIO_MEDIA_AMR]: audioPlayer,
+    [VIDEO_MEDIA_MPEG]: videoPlayer,
+    [VIDEO_MEDIA_MP4]: videoPlayer,
+    [VIDEO_MEDIA_QUICKTIME]: videoPlayer,
+    [VIDEO_MEDIA_WEBM]: videoPlayer,
+    [FILE_MEDIA_PDF]: pdfViewer
   }
 
   return (
