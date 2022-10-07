@@ -1,4 +1,4 @@
-# Twilio Flex Conversations Send WhatsApp Audio Plugin
+# Twilio Flex Send WhatsApp Audio Plugin
 
 ## Disclaimer
 
@@ -10,7 +10,7 @@ As of Oct/2022, due to limitations in the way web browsers capture audio media, 
 
 ## Important note
 
-To use this plugin you need to have Flex Conversations enabled on your account as well as Flex UI 2.0. Please read our doc for more details about it: https://www.twilio.com/docs/flex/developer/conversations.
+To use this plugin you must be using the latest version of Flex UI. If you are still on UI 1.x.x, [use this guide to migrate to UI 2.x.x](https://www.twilio.com/docs/flex/developer/plugins/migration-guide)
 
 ## Information about the plugin
 
